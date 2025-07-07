@@ -70,6 +70,12 @@
     <label for="amount">Donation Amount *</label>
     <input type="text" id="amount" placeholder="Enter hadya/donation amount" required>
 
+    <label>Donation Type *</label>
+    <div style="margin-top: 5px;">
+      <label><input type="radio" name="donationType" value="Member" required> Member</label>
+      <label style="margin-left: 15px;"><input type="radio" name="donationType" value="General" required> General</label>
+    </div>
+    
     <button onclick="sendMessage()">Send Message</button>
 
     <div class="footer">
@@ -83,7 +89,11 @@
 function sendMessage() {
   const mobile = document.getElementById("mobile").value.trim();
   const amount = document.getElementById("amount").value.trim();
-  
+  const donationType = document.querySelector('input[name="donationType"]:checked');
+  if (!donationType) {
+    alert("Please select donation type: Member or General.");
+  return;
+  }
   if (!mobile) {
     alert("Please enter your mobile number.");
     return;
@@ -98,7 +108,7 @@ function sendMessage() {
   const options = { day: '2-digit', month: 'short', year: 'numeric' };
   const formattedDate = date.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
 
-  const message = `*Masjid-e-Usman* - hadya/donation
+  const message = `*Masjid-e-Usman* - ${donationType.value} hadya/donation
 Usmania Colony, Kondhwa Kh, Pune - 411048
 
 _*${formattedDate}*_
