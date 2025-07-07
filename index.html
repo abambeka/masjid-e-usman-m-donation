@@ -1,43 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Masjid Donation</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
-    body { font-family: Arial; padding: 20px; background: #f5f5f5; }
-    input, button { font-size: 1.2em; padding: 10px; width: 100%; margin-top: 10px; }
-  </style>
-</head>
-<body>
-  <h2>Masjid-e-Usman Donation</h2>
-  <input id="mobile" type="text" placeholder="Enter your mobile number">
-  <button onclick="sendWhatsApp()">Open WhatsApp</button>
-
+  <title>Monthly Donation - Masjid-e-Usman</title>
   <script>
-    async function sendWhatsApp() {
-      const mobile = document.getElementById('mobile').value;
-      if (!mobile) return alert("Please enter mobile number");
-
-      const apiUrl = "https://script.google.com/macros/s/AKfycbzW9akDiTh9ldsWG2iBAUY82XajJOxBThlD9Z5CSyCX7kfAK9d8Ahw9i-K5qqFR1Ct3Aw/exec?mobile=" + encodeURIComponent(mobile);
-      let memberID = "";
-
-      try {
-        const response = await fetch(apiUrl);
-        memberID = await response.text();
-      } catch (e) {
-        alert("Error fetching Member ID");
+    function openWhatsApp() {
+      const mobile = document.getElementById("mobile").value.trim();
+      if (!mobile) {
+        alert("Please enter your mobile number.");
         return;
       }
 
       const now = new Date();
-      const monthYear = now.toLocaleString('default', { month: 'short', year: 'numeric' });
+      const options = { month: 'short', year: 'numeric' };
+      const monthYear = now.toLocaleDateString('en-US', options);
 
-      const message = `*Monthly member donation of ${monthYear}*\nfor *Masjid-e-Usman*,\nUsmania Colony, Kondhwa Kh, Pune - 411048\n\n*Member ID : * ${memberID}\nAmount : \nName : \nFlat Number : \nBuilding Name : \nRegistered Mobile : ${mobile}\n\nPayment Snap is also attached\n*جزاک اللہ خیرا کثیر ہ*`;
+      const msg = `*Monthly member donation of ${monthYear}*\n` +
+        `for *Masjid-e-Usman*,\n` +
+        `Usmania Colony, Kondhwa Kh, Pune - 411048\n\n` +
+        `*Member ID :* <'Member IDs'!$E$2>\n` +
+        `Amount : \n` +
+        `Name : \n` +
+        `Flat Number : \n` +
+        `Building Name : \n` +
+        `Registered Mobile : ${mobile}\n\n` +
+        `Payment Snap is also attached\n` +
+        `*جزاک اللہ خیرا کثیر ہ*`;
 
-      const encoded = encodeURIComponent(message);
-      const url = `https://wa.me/918446327952?text=${encoded}`;
-      window.open(url, "_blank");
+      const encodedMsg = encodeURIComponent(msg);
+      const waLink = `https://wa.me/918446327952?text=${encodedMsg}`;
+
+      window.open(waLink, "_blank");
     }
   </script>
+</head>
+<body style="font-family: Arial; padding: 20px;">
+  <h2>Masjid-e-Usman - Monthly Donation</h2>
+  <label for="mobile">Enter Your Mobile Number:</label><br><br>
+  <input type="tel" id="mobile" placeholder="e.g., 9876543210" style="padding: 8px; width: 250px;"><br><br>
+  <button onclick="openWhatsApp()" style="padding: 10px 20px; font-size: 16px;">Open WhatsApp</button>
 </body>
 </html>
