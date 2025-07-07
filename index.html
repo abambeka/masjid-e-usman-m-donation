@@ -2,12 +2,12 @@
   async function openWhatsApp() {
     const mobile = document.getElementById("mobile").value.trim();
     if (!mobile) {
-      alert("Enter Member Mbile number :");
+      alert("Please enter your mobile number.");
       return;
     }
 
     // STEP 1: Update Google Sheet
-    const sheetURL = "https://script.google.com/macros/s/AKfycbzW9akDiTh9ldsWG2iBAUY82XajJOxBThlD9Z5CSyCX7kfAK9d8Ahw9i-K5qqFR1Ct3Aw/exec"; // Replace with actual Web App URL
+    const sheetURL = "YOUR_WEB_APP_URL_HERE"; // Replace with actual Web App URL
     try {
       await fetch(sheetURL, {
         method: "POST",
@@ -25,8 +25,8 @@
     const msg = `*Monthly member donation of ${monthYear}*\n` +
       `for *Masjid-e-Usman*,\n` +
       `Usmania Colony, Kondhwa Kh, Pune - 411048\n\n` +
-      `Amount : \n\n` +
       `*Member ID :* <'Member IDs'!$E$2>\n` +
+      `Amount : \n` +
       `Name : \n` +
       `Flat Number : \n` +
       `Building Name : \n` +
