@@ -48,6 +48,17 @@
       margin-top: 25px;
       cursor: pointer;
     }
+   .radio-group {
+      margin-top: 5px;
+      display: flex;
+      gap: 10px;
+      font-size: 14px;
+      align-items: center;
+    }
+    .radio-group input[type="radio"] {
+      transform: scale(0.85); /* make radio buttons slightly smaller */
+      margin-right: 4px;
+    }
     button:hover {
       background-color: #005a42;
     }
@@ -70,11 +81,11 @@
     <label for="amount">Donation Amount *</label>
     <input type="text" id="amount" placeholder="Enter hadya/donation amount" required>
 
-    <label>Donation Type *</label>
-    <div style="margin-top: 5px;">
-      <label><input type="radio" name="donationType" value="Member" required> Member</label>
-      <label style="margin-left: 5px;"><input type="radio" name="donationType" value="General" required> General</label>
-    </div>
+<label>Donation Type *</label>
+<div class="radio-group">
+  <label><input type="radio" name="donationType" value="Member" required> Member</label>
+  <label><input type="radio" name="donationType" value="General" required> General</label>
+</div>
     
     <button onclick="sendMessage()">Send Message</button>
 
