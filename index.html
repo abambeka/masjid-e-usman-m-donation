@@ -14,8 +14,8 @@
     .container {
       max-width: 400px;
       margin: auto;
-      margin-top: 30px;
-      padding: 30px;
+      margin-top: 10px;
+      padding: 20px;
       background: #ffffff;
       border-radius: 20px;
       box-shadow: 0 5px 15px rgba(0,0,0,0.2);
@@ -53,11 +53,11 @@
       display: flex;
       gap: 10px;
       font-size: 14px;
-      align-items: center;
+      align-items: right;
     }
     .radio-group input[type="radio"] {
-      transform: scale(0.85); /* make radio buttons slightly smaller */
-      margin-center: 4px;
+      transform: scale(0.95); /* make radio buttons slightly smaller */
+      margin-right: 4px;
     }
     button:hover {
       background-color: #005a42;
@@ -81,11 +81,16 @@
     <label for="amount">Donation Amount *</label>
     <input type="text" id="amount" placeholder="Enter hadya/donation amount" required>
 
-<label>Donation Type *</label>
-<div class="radio-group">
-  <label><input type="radio" name="donationType" value="Member" required> Member</label>
-  <label><input type="radio" name="donationType" value="General" required> General</label>
-</div>
+    <label>Donation Type *</label>
+    <div class="radio-group">
+      <label><input type="radio" name="donationType" value="Monthly" required> Monthly</label>
+      <label><input type="radio" name="donationType" value="General" required> General</label>
+    </div>
+
+    <div class="radio-group">
+      <label><input type="radio" name="donationMethode" value="Online" required> Online</label>
+      <label><input type="radio" name="donationMethode" value="Cash" required> Cash</label>
+    </div>
     
     <button onclick="sendMessage()">Send Message</button>
 
@@ -101,8 +106,13 @@ function sendMessage() {
   const mobile = document.getElementById("mobile").value.trim();
   const amount = document.getElementById("amount").value.trim();
   const donationType = document.querySelector('input[name="donationType"]:checked');
+  const donationMethode = document.querySelector('input[name="donationMethode"]:checked');
   if (!donationType) {
-    alert("Please select donation type: Member or General.");
+    alert("Please select donation type: Monthly or General.");
+  return;
+  }
+  if (!donationMethode) {
+    alert("Please select donation methode: Cash or Online.");
   return;
   }
   if (!mobile) {
@@ -124,7 +134,7 @@ Usmania Colony, Kondhwa Kh, Pune - 411048
 
 _*${formattedDate}*_
 
-Amount : ${amount}
+Amount : Rs. *${amount}*/- Only.  _ ${donationMethode}
 Name : 
 Flat Number : 
 Building Name : 
