@@ -1,7 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Monthly Donation - Masjid-e-Usman</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Masjid-e-Usman Donation</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      margin: 0;
+      background-color: #f9f9f9;
+    }
+
+    .container {
+      max-width: 400px;
+      margin: auto;
+      background-color: #fff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    input[type="tel"] {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #25D366;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #1ebd5f;
+    }
+  </style>
   <script>
     function openWhatsApp() {
       const mobile = document.getElementById("mobile").value.trim();
@@ -28,15 +83,16 @@
 
       const encodedMsg = encodeURIComponent(msg);
       const waLink = `https://wa.me/918446327952?text=${encodedMsg}`;
-
       window.open(waLink, "_blank");
     }
   </script>
 </head>
-<body style="font-family: Arial; padding: 20px;">
-  <h2>Masjid-e-Usman - Monthly Donation</h2>
-  <label for="mobile">Enter Your Mobile Number:</label><br><br>
-  <input type="tel" id="mobile" placeholder="e.g., 9876543210" style="padding: 8px; width: 250px;"><br><br>
-  <button onclick="openWhatsApp()" style="padding: 10px 20px; font-size: 16px;">Open WhatsApp</button>
+<body>
+  <div class="container">
+    <h2>Monthly Donation</h2>
+    <label for="mobile">Your Mobile Number</label>
+    <input type="tel" id="mobile" placeholder="e.g. 9876543210" />
+    <button onclick="openWhatsApp()">Open WhatsApp</button>
+  </div>
 </body>
 </html>
