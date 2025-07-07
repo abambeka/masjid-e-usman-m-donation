@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Masjid-e-Usman Donation</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to bottom, #f0f8ff, #e0f0ea);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: auto;
+      margin-top: 50px;
+      padding: 30px;
+      background: #ffffff;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+      color: #0b3b2e;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 500;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-top: 5px;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background-color: #007c5c;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      margin-top: 25px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005a42;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      margin-top: 20px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Masjid-e-Usman Donation</h2>
+    <label for="mobile">Mobile Number *</label>
+    <input type="tel" id="mobile" placeholder="Enter your mobile number" required>
+
+    <label for="memberId">Member ID (optional)</label>
+    <input type="text" id="memberId" placeholder="Enter Member ID if available">
+
+    <button onclick="sendMessage()">Send Message</button>
+
+    <div class="footer">
+      جزاک اللہ خیرا
+    </div>
+  </div>
+
+  <script>
+    function sendMessage() {
+      const mobile = document.getElementById("mobile").value.trim();
+      const memberId = document.getElementById("memberId").value.trim();
+      
+      if (!mobile) {
+        alert("Please enter your mobile number.");
+        return;
+      }
+
+      const date = new Date();
+      const options = { day: '2-digit', month: 'short', year: 'numeric' };
+      const formattedDate = date.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+
+      const message = `*Masjid-e-Usman Member* - Monthly donation
+Usmania Colony, Kondhwa Kh, Pune - 411048
+
+${formattedDate}
+
+Amount : 
+Name : 
+Flat Number : 
+Building Name : 
+Registered Mobile : ${mobile}
+Member ID : ${memberId || "-"}
+
+--------------------
+Payment Snap is also attached
+*جزاک اللہ خیرا کثیر ہ*`;
+
+      const encodedMessage = encodeURIComponent(message);
+      const phoneNumber = "918446327952";
+
+      window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+    }
+  </script>
+
+</body>
+</html>
