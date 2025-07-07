@@ -1,98 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Masjid-e-Usman Donation</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      margin: 0;
-      background-color: #f9f9f9;
+<script>
+  async function openWhatsApp() {
+    const mobile = document.getElementById("mobile").value.trim();
+    if (!mobile) {
+      alert("Please enter your mobile number.");
+      return;
     }
 
-    .container {
-      max-width: 400px;
-      margin: auto;
-      background-color: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    // STEP 1: Update Google Sheet
+    const sheetURL = "https://script.google.com/macros/s/AKfycbzW9akDiTh9ldsWG2iBAUY82XajJOxBThlD9Z5CSyCX7kfAK9d8Ahw9i-K5qqFR1Ct3Aw/exec"; // Replace with actual Web App URL
+    try {
+      await fetch(sheetURL, {
+        method: "POST",
+        body: new URLSearchParams({ mobile }),
+      });
+    } catch (error) {
+      console.error("Error updating sheet:", error);
     }
 
-    h2 {
-      text-align: center;
-      color: #333;
-    }
+    // STEP 2: WhatsApp Message
+    const now = new Date();
+    const options = { month: 'short', year: 'numeric' };
+    const monthYear = now.toLocaleDateString('en-US', options);
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-size: 16px;
-      color: #333;
-    }
+    const msg = `*Monthly member donation of ${monthYear}*\n` +
+      `for *Masjid-e-Usman*,\n` +
+      `Usmania Colony, Kondhwa Kh, Pune - 411048\n\n` +
+      `*Member ID :* <'Member IDs'!$E$2>\n` +
+      `Amount : \n` +
+      `Name : \n` +
+      `Flat Number : \n` +
+      `Building Name : \n` +
+      `Registered Mobile : ${mobile}\n\n` +
+      `Payment Snap is also attached\n` +
+      `*جزاک اللہ خیرا کثیر ہ*`;
 
-    input[type="tel"] {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 20px;
-      font-size: 16px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
-
-    button {
-      width: 100%;
-      padding: 14px;
-      background-color: #25D366;
-      color: white;
-      font-size: 16px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #1ebd5f;
-    }
-  </style>
-  <script>
-    function openWhatsApp() {
-      const mobile = document.getElementById("mobile").value.trim();
-      if (!mobile) {
-        alert("Please enter your mobile number.");
-        return;
-      }
-
-      const now = new Date();
-      const options = { month: 'short', year: 'numeric' };
-      const monthYear = now.toLocaleDateString('en-US', options);
-
-      const msg = `*Monthly member donation of ${monthYear}*\n` +
-        `for *Masjid-e-Usman*,\n` +
-        `Usmania Colony, Kondhwa Kh, Pune - 411048\n\n` +
-        `*Member ID :* <'Member IDs'!$E$2>\n` +
-        `Amount : \n` +
-        `Name : \n` +
-        `Flat Number : \n` +
-        `Building Name : \n` +
-        `Registered Mobile : ${mobile}\n\n` +
-        `Payment Snap is also attached\n` +
-        `*جزاک اللہ خیرا کثیر ہ*`;
-
-      const encodedMsg = encodeURIComponent(msg);
-      const waLink = `https://wa.me/918446327952?text=${encodedMsg}`;
-      window.open(waLink, "_blank");
-    }
-  </script>
-</head>
-<body>
-  <div class="container">
-    <h2>Monthly Donation</h2>
-    <label for="mobile">Your Mobile Number</label>
-    <input type="tel" id="mobile" placeholder="e.g. 9876543210" />
-    <button onclick="openWhatsApp()">Open WhatsApp</button>
-  </div>
-</body>
-</html>
+    const encodedMsg = encodeURIComponent(msg);
+    const waLink = `https://wa.me/918446327952?text=${encodedMsg}`;
+    window.open(waLink, "_blank");
+  }
+</script>
