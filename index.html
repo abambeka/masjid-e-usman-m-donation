@@ -67,6 +67,10 @@
     <label for="mobile">Mobile Number *</label>
     <input type="tel" id="mobile" placeholder="Enter registered mobile number" required>
 
+    <label for="amount">Donation Amount *</label>
+    <input type="text" id="amount" placeholder="Enter hadya/donation amount" required>
+
+
     <label for="memberId">Member ID (optional)</label>
     <input type="text" id="memberId" placeholder="Enter Member ID if you remember">
 
@@ -80,26 +84,31 @@
   </div>
 
   <script>
-    function sendMessage() {
-      const mobile = document.getElementById("mobile").value.trim();
-      const memberId = document.getElementById("memberId").value.trim();
-      
-      if (!mobile) {
-        alert("Please enter your mobile number.");
-        return;
-      }
+function sendMessage() {
+  const mobile = document.getElementById("mobile").value.trim();
+  const memberId = document.getElementById("memberId").value.trim();
+  const amount = document.getElementById("amount").value.trim();
+  
+  if (!mobile) {
+    alert("Please enter your mobile number.");
+    return;
+  }
 
-      const date = new Date();
-      const options = { day: '2-digit', month: 'short', year: 'numeric' };
-      const formattedDate = date.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+  if (!amount) {
+    alert("Please enter the donation amount.");
+    return;
+  }
 
-      const message = `*Masjid-e-Usman Member* - Monthly donation
+  const date = new Date();
+  const options = { day: '2-digit', month: 'short', year: 'numeric' };
+  const formattedDate = date.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+
+  const message = `*Masjid-e-Usman Member* - Monthly donation
 Usmania Colony, Kondhwa Kh, Pune - 411048
 
 _*${formattedDate}*_
 
-Amount : 
-
+Amount : ${amount}
 Name : 
 Flat Number : 
 Building Name : 
@@ -109,11 +118,12 @@ Member ID : ${memberId}
 _Payment Snap is also sent_
 *جزاک اللہ خیرا کثیر ہ*`;
 
-      const encodedMessage = encodeURIComponent(message);
-      const phoneNumber = "918446327952";
+  const encodedMessage = encodeURIComponent(message);
+  const phoneNumber = "918446327952";
 
-      window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
-    }
+  window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+}
+
   </script>
 
 </body>
