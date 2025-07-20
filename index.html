@@ -98,7 +98,7 @@
 
     <div class="radio-group">
       <label><input type="radio" name="donator" value="Existing" required> Existing</label>
-      <label><input type="radio" name="donator" value="New" required> New</label>
+      <label><input type="radio" name="donator" value="New Member" required> New Member</label>
       <label><input type="radio" name="donator" value="Ahle-Khayr" required> Ahle-Khayr</label>
     </div>
 
@@ -127,7 +127,7 @@
     document.querySelectorAll('input[name="donator"]').forEach(radio => {
       radio.addEventListener('change', function () {
         const extraFields = document.getElementById("extraFields");
-        if (this.value === "New") {
+        if (this.value === "New Member") {
           extraFields.style.display = "block";
         } else {
           extraFields.style.display = "none";
@@ -163,9 +163,9 @@
         return;
       }
 
-      // Get extra fields only if donator is "New"
+      // Get extra fields only if donator is "New Member"
       let extraInfo = "";
-      if (donator.value === "New") {
+      if (donator.value === "New Member") {
         const name = document.getElementById("name").value.trim();
         const flat = document.getElementById("flat").value.trim();
         const building = document.getElementById("building").value.trim();
