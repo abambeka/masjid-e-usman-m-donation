@@ -99,7 +99,7 @@
     <div class="radio-group">
       <label><input type="radio" name="donator" value="Existing" required> Existing</label>
       <label><input type="radio" name="donator" value="New" required> New</label>
-      <label><input type="radio" name="donator" value="AhleKhayr" required> AhleKhayr</label>
+      <label><input type="radio" name="donator" value="Ahle-Khayr" required> AhleKhayr</label>
     </div>
 
     <!-- Conditionally displayed fields -->
@@ -179,12 +179,13 @@ Building Name : ${building}
       const options = { day: '2-digit', month: 'short', year: 'numeric' };
       const formattedDate = date.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
 
-      const message = `*Masjid-e-Usman* - ${donationType.value} hadya/donation
+      const message = `*Masjid-e-Usman* - hadya/donation
 Usmania Colony, Kondhwa Kh, Pune - 411048
 
-// _*${formattedDate}*_ //
+// _*${formattedDate}*_ - *${donationType.value}* # ${donationMethode.value}
+_*${donator.value}*_
 
-Amount : Rs. *${amount}*/- Only   [ ${donationMethode.value} ]
+Amount : Rs. *${amount}*/- Only
 Registered Mobile : ${mobile}
 ${extraInfo}
 --------------------
