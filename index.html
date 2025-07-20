@@ -48,7 +48,7 @@
       margin-top: 25px;
       cursor: pointer;
     }
-   .radio-group {
+    .radio-group {
       margin-top: 5px;
       display: flex;
       gap: 10px;
@@ -56,7 +56,7 @@
       align-items: center;
     }
     .radio-group input[type="radio"] {
-      transform: scale(0.95); /* make radio buttons slightly smaller */
+      transform: scale(0.95);
       margin-right: 4px;
     }
     button:hover {
@@ -68,6 +68,9 @@
       margin-top: 20px;
       color: #888;
     }
+    #extraFields {
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -75,6 +78,7 @@
   <div class="container">
     <h2>عطیہ برائے مسجدِ عثمان 🕌</h2>
     <h2>Masjid-e-Usman Donation</h2>
+
     <label for="mobile">Mobile Number *</label>
     <input type="tel" id="mobile" placeholder="Enter registered mobile number" required>
 
@@ -91,62 +95,91 @@
       <label><input type="radio" name="donationMethode" value="Online" required> Online</label>
       <label><input type="radio" name="donationMethode" value="Cash" required> Cash</label>
     </div>
-    
+
     <div class="radio-group">
       <label><input type="radio" name="donator" value="Existing" required> Existing</label>
       <label><input type="radio" name="donator" value="New" required> New</label>
       <label><input type="radio" name="donator" value="AhleKhayr" required> AhleKhayr</label>
     </div>
 
+    <!-- Conditionally displayed fields -->
     <div id="extraFields">
       <label for="name">Name</label>
       <input type="text" id="name" placeholder="Enter your full name">
-      
+
       <label for="flat">Flat Number</label>
       <input type="text" id="flat" placeholder="Enter flat number">
-      
+
       <label for="building">Building Name</label>
       <input type="text" id="building" placeholder="Enter building name">
     </div>
-    
+
     <button onclick="sendMessage()">Send Message</button>
 
     <div class="footer">
-     <h2>جَزَاكَ ٱللّٰهُ خَيْرًا كَثِيرًا</h2>
-
+      <h2>جَزَاكَ ٱللّٰهُ خَيْرًا كَثِيرًا</h2>
       "The mosques of Allah are maintained only by those who believe in Allah and the Last Day..."
     </div>
   </div>
 
   <script>
-function sendMessage() {
-  const mobile = document.getElementById("mobile").value.trim();
-  const amount = document.getElementById("amount").value.trim();
-  const donationType = document.querySelector('input[name="donationType"]:checked');
-  const donationMethode = document.querySelector('input[name="donationMethode"]:checked');
-  if (!donationType) {
-    alert("Please select donation type: Monthly or General.");
-  return;
-  }
-  if (!donationMethode) {
-    alert("Please select donation methode: Cash or Online.");
-  return;
-  }
-  if (!mobile) {
-    alert("Please enter your mobile number.");
-    return;
-  }
+    // Toggle extra fields based on donator selection
+    document.querySelectorAll('input[name="donator"]').forEach(radio => {
+      radio.addEventListener('change', function () {
+        const extraFields = document.getElementById("extraFields");
+        if (this.value === "New") {
+          extraFields.style.display = "block";
+        } else {
+          extraFields.style.display = "none";
+        }
+      });
+    });
 
-  if (!amount) {
-    alert("Please enter the donation amount.");
-    return;
-  }
+    function sendMessage() {
+      const mobile = document.getElementById("mobile").value.trim();
+      const amount = document.getElementById("amount").value.trim();
+      const donationType = document.querySelector('input[name="donationType"]:checked');
+      const donationMethode = document.querySelector('input[name="donationMethode"]:checked');
+      const donator = document.querySelector('input[name="donator"]:checked');
 
-  const date = new Date();
-  const options = { day: '2-digit', month: 'short', year: 'numeric' };
-  const formattedDate = date.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+      if (!donationType) {
+        alert("Please select donation type: Monthly or General.");
+        return;
+      }
+      if (!donationMethode) {
+        alert("Please select donation method: Cash or Online.");
+        return;
+      }
+      if (!donator) {
+        alert("Please select donator type.");
+        return;
+      }
+      if (!mobile) {
+        alert("Please enter your mobile number.");
+        return;
+      }
+      if (!amount) {
+        alert("Please enter the donation amount.");
+        return;
+      }
 
-  const message = `*Masjid-e-Usman* - ${donationType.value} hadya/donation
+      // Get extra fields only if donator is "New"
+      let extraInfo = "";
+      if (donator.value === "New") {
+        const name = document.getElementById("name").value.trim();
+        const flat = document.getElementById("flat").value.trim();
+        const building = document.getElementById("building").value.trim();
+        extraInfo = `Name : ${name}
+Flat Number : ${flat}
+Building Name : ${building}
+`;
+      }
+
+      const date = new Date();
+      const options = { day: '2-digit', month: 'short', year: 'numeric' };
+      const formattedDate = date.toLocaleDateString('en-GB', options).replace(/ /g, ' ');
+
+      const message = `*Masjid-e-Usman* - ${donationType.value} hadya/donation
 Usmania Colony, Kondhwa Kh, Pune - 411048
 
 // _*${formattedDate}*_ //
@@ -158,28 +191,11 @@ ${extraInfo}
 _also Sharing Online Payment Snap Shot_
 *جزاک اللہ خیرا کثیر ہ*`;
 
-  const encodedMessage = encodeURIComponent(message);
-  const phoneNumber = "918446327952";
+      const encodedMessage = encodeURIComponent(message);
+      const phoneNumber = "918446327952";
 
-  window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
-}
-
-// Show/hide extra fields based on donator type
-document.querySelectorAll('input[name="donator"]').forEach(radio => {
-  radio.addEventListener('change', function () {
-    const extraFields = document.getElementById("extraFields");
-    if (this.value === "New") {
-      extraFields.style.display = "block";
-    } else {
-      extraFields.style.display = "none";
+      window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
     }
-  });
-});
-
-#extraFields {
-  display: none;
-}
-
   </script>
 
 </body>
