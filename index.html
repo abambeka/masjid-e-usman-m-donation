@@ -92,6 +92,23 @@
       <label><input type="radio" name="donationMethode" value="Cash" required> Cash</label>
     </div>
     
+    <div class="radio-group">
+      <label><input type="radio" name="donator" value="Existing" required> Existing</label>
+      <label><input type="radio" name="donator" value="New" required> New</label>
+      <label><input type="radio" name="donator" value="AhleKhayr" required> AhleKhayr</label>
+    </div>
+
+    <div id="extraFields">
+      <label for="name">Name</label>
+      <input type="text" id="name" placeholder="Enter your full name">
+      
+      <label for="flat">Flat Number</label>
+      <input type="text" id="flat" placeholder="Enter flat number">
+      
+      <label for="building">Building Name</label>
+      <input type="text" id="building" placeholder="Enter building name">
+    </div>
+    
     <button onclick="sendMessage()">Send Message</button>
 
     <div class="footer">
@@ -135,18 +152,32 @@ Usmania Colony, Kondhwa Kh, Pune - 411048
 // _*${formattedDate}*_ //
 
 Amount : Rs. *${amount}*/- Only   [ ${donationMethode.value} ]
-Name : 
-Flat Number : 
-Building Name : 
 Registered Mobile : ${mobile}
+${extraInfo}
 --------------------
-_also Sharing Online Payment Snap_
+_also Sharing Online Payment Snap Shot_
 *جزاک اللہ خیرا کثیر ہ*`;
 
   const encodedMessage = encodeURIComponent(message);
   const phoneNumber = "918446327952";
 
   window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, "_blank");
+}
+
+// Show/hide extra fields based on donator type
+document.querySelectorAll('input[name="donator"]').forEach(radio => {
+  radio.addEventListener('change', function () {
+    const extraFields = document.getElementById("extraFields");
+    if (this.value === "New") {
+      extraFields.style.display = "block";
+    } else {
+      extraFields.style.display = "none";
+    }
+  });
+});
+
+#extraFields {
+  display: none;
 }
 
   </script>
